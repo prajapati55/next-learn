@@ -1,0 +1,228 @@
+// Mixin
+@mixin FontAwesome(){font-family:'FontAwesome';}
+@mixin OpenSansRegular(){font-family: 'OpenSansRegular' !important;}
+@mixin OpenSansSemibold(){font-family: 'OpenSansSemibold';}
+@mixin ptSans(){font-family: 'PT Sans';}
+@mixin JameelNoori(){font-family: 'JameelNooriNastaleeq' !important;}
+@mixin transition($property){
+    -webkit-transition: $property;
+    -moz-transition: $property;
+    -ms-transition: $property;
+    -o-transition: $property;
+    transition: $property;
+}
+@mixin font-weight($fontWeight){
+    font-weight: $fontWeight;
+}
+@mixin dBlock{display: block;}
+@mixin dInlineBlock{display: inline-block;}
+@mixin dNone{display: none;}
+@mixin blackBg{background: $blackColor;}
+@mixin blackText{color: $blackColor;}
+@mixin whiteBg{background: $whiteColor;}
+@mixin whiteText{color: $whiteColor;}
+@mixin cursorPointer{cursor: pointer;}
+@mixin redBg{background: $redColor;}
+@mixin redText{color: $redColor;}
+@mixin greenBg{background: $greenColor;}
+@mixin greenText{color: $greenColor;}
+@mixin blueBg{background: $blueColor;}
+@mixin blueText{color: $blueColor;}
+@mixin greyLightColorBg{background: $greyLightColor;}
+@mixin colora3aBg{background: $colora3a;}
+@mixin positionAb{position: absolute;}
+@mixin positionFix{position: fixed;}
+@mixin positionRe{position: relative;}
+@mixin contentNull{content: "";}
+@mixin textUnderline{text-decoration: underline;}
+@mixin textUnderlineNone{text-decoration: none;}
+@mixin textCenter{text-align: center;}
+@mixin floatLeft{float: left;}
+@mixin floatRight{float: right;}
+@mixin floatNone{float: none;}
+@mixin beforeBorder{            
+    &:before{
+        @include positionAb;
+        @include contentNull;
+        background: lighten($darkGreyColor, 38%);
+        width: 1px;
+        height: 90%;
+        top: 8%;
+        bottom: 5%;
+        left: -12px;
+    }
+}
+@mixin anchorHover{
+    a{
+        @include blackText;
+        &:hover{
+            @include redText;
+            @include textUnderlineNone;
+        }
+    } 
+}
+@mixin coloredAnchorHover{
+    @include textUnderline;
+    @include floatRight;
+    font-size: $fontSize08rem;
+    &:hover{
+        @include blackText;
+        @include textUnderlineNone;
+    }
+}
+@mixin blueAnchorHover{
+    a{
+        @include blueText;
+        @include coloredAnchorHover;
+    } 
+}
+@mixin greenAnchorHover{
+    a{
+        @include greenText;
+        @include coloredAnchorHover;
+    } 
+}
+@mixin redAnchorHover{
+    a{
+        @include redText;
+        @include coloredAnchorHover;
+    } 
+}
+@mixin listDividerSpace{
+    li{
+        @include positionRe; 
+        &:not(:last-child){
+            margin-right: $space0;
+        }      
+    }
+}
+@mixin iconBeforeAnchor{
+    a{
+        padding-left: $space07em;
+        @include dBlock;
+        @include transition(all 0.5s ease-in-out 0s);                    
+        &:hover{
+            padding-left: $space09em;  
+        }
+    }
+}
+@mixin iconBeforeFont{
+    @include positionAb;
+    left: $space0;
+    @include FontAwesome();
+    top: $space0;
+    bottom: $space0;
+    display: grid;
+    align-content: center;
+}
+@mixin linkBeforeArrow{
+    ul{
+        li{
+            @include positionRe;
+            @include iconBeforeAnchor;
+            &:before{
+                content:"\f105";
+                @include iconBeforeFont;
+            }
+        }
+    }
+}
+@mixin socialColor($facebookColor,$twitterColor,$emailColor,$linkedinColor,$youtubeColor,$googleplusColor){
+    .facebookFtr a{
+        background: $facebookColor;
+    }
+    .twitterFtr a{
+        background: $twitterColor;
+    }
+    .emailFtr a{
+        background: $emailColor;
+    }
+    .linkedinFtr a{
+        background: $linkedinColor;
+    }
+    .youtubeFtr a{
+        background: $youtubeColor;
+    }
+    .googleplusFtr a{
+        background: $googleplusColor;
+    }
+    .bloggerFtr a{
+        background: $redColorFF00;
+    }
+}
+@mixin textTransform($variable){
+    text-transform: $variable;
+}
+
+// Media Query
+@mixin desktop {
+    @media (min-width: #{$tablet + 1}){
+        @content;
+    }
+}
+
+@mixin tabletLg {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$ipad + 1px}) and (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin ipadLg {
+  @media (max-width: #{$ipad}) {
+    @content;
+  }
+}
+
+@mixin ipad {
+  @media (min-width: #{$mobile + 1px}) and (max-width: #{$ipad}) {
+    @content;
+  }
+}
+
+@mixin mobileLg {
+  @media (min-width: #{$mobileSm + 1px}) and (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin mobileSmall {
+  @media (max-width: #{$mobileSm}) {
+    @content;
+  }
+}
+@mixin mobileSmall370 {
+  @media (max-width: #{$mobile370}) {
+    @content;
+  }
+}
+
+// $breakMobile575: 320px;
+// $breakMobile767: 767px;
+// $breakIpad991: 1024px;
+// $breakDesktop1199: 1199px;
+// $breakDesktop767: 1024px;
+
+// Media Query
+// @mixin respond-to($media) {
+//   @if $media == handhelds {
+//     @media only screen and (max-width: $break-small) { @content; }
+//   }
+//   @else if $media == medium-screens {
+//     @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+//   }
+//   @else if $media == wide-screens {
+//     @media only screen and (min-width: $break-large) { @content; }
+//   }
+// }

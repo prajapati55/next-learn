@@ -1,0 +1,1373 @@
+@import "fonts.scss";
+@import "mixin.scss";
+@import "colors.scss";
+@import "spacing.scss";
+
+// Common
+body {
+  font-size: $baseFontSize;
+  @include OpenSansRegular();
+}
+.urduFont {
+  @include JameelNoori();
+}
+.greenTitleBg {
+  border-bottom: 3px solid $greenColor;
+  h2,
+  h1 {
+    background: $greenColor;
+  }
+}
+.redTitleBg {
+  border-bottom: 3px solid $redColor;
+  h2 {
+    background: $redColor;
+  }
+}
+.blueTitleBg {
+  border-bottom: 3px solid $blueColor;
+  h2 {
+    background: $blueColor;
+  }
+}
+.sectionTitle {
+  @include whiteText;
+  background: $greyLightColor;
+  h1,
+  h2 {
+    font-size: $fontSize1rem;
+    line-height: $space35;
+    @include OpenSansSemibold;
+    small {
+      font-size: $fontSize08rem;
+      @include dBlock;
+      padding: 0 0 $space5;
+      line-height: $space5 * 3;
+    }
+  }
+  select.custom-select {
+    height: $space30 + 2;
+    line-height: $space20 - 5;
+  }
+  label {
+    @include blackText;
+    line-height: $lineHeight2;
+  }
+  a {
+    @include redText;
+    &:hover {
+      @include blackText;
+      @include textUnderlineNone;
+    }
+  }
+  .divide {
+    @include blackText;
+    margin-top: $space10 - 4;
+  }
+}
+h2 {
+  @include ptSans;
+}
+
+// Button
+.btn.btn-danger {
+  @include redBg;
+  @include whiteText;
+}
+.btn.btn-success {
+  @include greenBg;
+  @include whiteText;
+}
+.btn.btn-primary {
+  @include blueBg;
+  @include whiteText;
+}
+.viewAllBtn {
+  height: 28px;
+  margin: 5px 5px;
+}
+
+//Header
+.headerTopRight {
+  margin-top: $space08em;
+  ul li a {
+    color: $darkGreyColor;
+  }
+}
+.headerMenu {
+  background: $redColor;
+  ul {
+    li {
+      @include positionRe;
+      margin: $space0 !important;
+      i.fa {
+        @include whiteText;
+        top: $space20 - 5;
+        right: $space0;
+      }
+      a {
+        @include whiteText;
+        @include dBlock;
+        padding: $space065em $space08em;
+        &:hover {
+          @include blackBg;
+          @include textUnderlineNone;
+        }
+      }
+      ul.subMenu {
+        @include dNone;
+        @include redBg;
+        width: 12em;
+        left: $space0;
+        z-index: 9999;
+      }
+      &:hover {
+        ul.subMenu {
+          @include dBlock;
+        }
+      }
+      ul {
+        li {
+          margin-left: $space0;
+          border-bottom: 1px solid lighten($redColor, 5%);
+          a {
+            padding: $space03em $space06em;
+          }
+        }
+      }
+      &:hover > a {
+        @include blackBg;
+      }
+    }
+    li.active {
+      a {
+        @include blackBg;
+        @include textUnderlineNone;
+      }
+    }
+  }
+  .dexktopSearchIcon {
+    @include blackBg;
+    @include whiteText;
+    @include cursorPointer;
+    padding: $space05em;
+    width: $space50;
+    height: $space50;
+    margin-top: $marginMinus10 + 5;
+    font-size: $fontSize13rem;
+    z-index: 99;
+    input {
+      @include positionAb;
+      bottom: $space2;
+      right: $space50;
+      @include blackText;
+      width: $space50 * 3 - $space10 + $space2;
+      visibility: visible;
+      @include transition(all 0.5s ease-in-out 0s);
+      height: $space40;
+    }
+    &:hover {
+      input {
+        width: $space50 * 5;
+        visibility: visible;
+      }
+    }
+  }
+}
+.headerNewsWrap {
+  h3 {
+    @include redBg;
+    font-size: $fontSize1rem;
+    width: 11.5em;
+    @include dInlineBlock;
+    &:before {
+      @include positionAb;
+      @include contentNull;
+      right: $space0;
+      top: $space0;
+      bottom: $space0;
+      border-bottom: 34px solid $whiteColor;
+      border-left: 21px solid transparent;
+      height: $space100Per;
+      width: $space20;
+    }
+  }
+  ul {
+    line-height: $lineHeight1;
+    @include listDividerSpace;
+    @include dInlineBlock;
+    @include anchorHover;
+    width: calc(100% - 12em);
+    li + li {
+      margin-left: $space13em;
+      @include beforeBorder;
+    }
+  }
+}
+
+// Footer
+.mainFooter {
+  background: lighten($greyLightColor, 5.5%);
+  font-size: $fontSize095rem;
+  @include anchorHover;
+  .footerMiddle {
+    ul {
+      line-height: $lineHeight11;
+      @include listDividerSpace;
+      li + li {
+        margin-left: $space13em;
+        @include beforeBorder;
+      }
+    }
+  }
+  .footerTop {
+    h2 {
+      @include ptSans();
+      @include font-weight(600);
+      font-size: $fontSize11rem;
+    }
+    ul {
+      line-height: $lineHeight17;
+    }
+    .usefullLinkFooter {
+      @include linkBeforeArrow;
+      ul {
+        li {
+          width: 49%;
+          @include dInlineBlock;
+        }
+      }
+    }
+    .contactFooter {
+      ul {
+        li {
+          @include positionRe;
+          @include iconBeforeAnchor;
+          a {
+            padding-left: $space13em;
+            &:hover {
+              padding-left: $space14em;
+            }
+            &:before {
+              @include iconBeforeFont;
+            }
+          }
+          &:first-child a:before {
+            content: "\f041";
+          }
+          &:nth-child(2) a:before {
+            content: "\f095";
+          }
+          &:last-child a:before {
+            content: "\f003";
+          }
+        }
+      }
+    }
+    .connectFooter {
+      li {
+        a {
+          @include whiteText;
+          @include dBlock;
+          @include textCenter;
+          width: $space35;
+          height: $space35;
+          line-height: $lineHeight23;
+        }
+        &:not(:last-child) {
+          margin-right: $space03em;
+        }
+      }
+      @include socialColor(
+        $facebookColor,
+        $twitterColor,
+        $emailColor,
+        $linkedinColor,
+        $youtubeColor,
+        $googleplusColor
+      );
+    }
+    .newsletter.newsletterFooter {
+      .form-inline {
+        @include dBlock;
+        .form-group {
+          width: $space100Per;
+          margin: 0 0 $space1em !important;
+          input {
+            width: $space100Per;
+          }
+        }
+      }
+      .btn.btn-danger {
+        width: $space100Per;
+      }
+    }
+  }
+}
+
+// Newsletter
+.newsletter {
+  input[type="email"],
+  input[type="text"] {
+    background: lighten($greyLightColor, 3.5%);
+    color: $darkGreyColor;
+  }
+}
+.subscribeSection,
+.newsletter {
+  form {
+    .alert.alert-danger,
+    .alert.alert-success {
+      width: $space100Per;
+      padding: $space10 - 5;
+      @include dInlineBlock;
+      clear: both;
+    }
+  }
+}
+
+// Debating Islam
+.debatingIslamBox {
+  background: lighten($greyLightColor, 5.5%);
+  h2 {
+    font-size: $fontSize09rem;
+    @include font-weight(600);
+  }
+  h3 {
+    font-size: $fontSize11rem;
+    @include blueText;
+    @include OpenSansSemibold();
+    min-height: $space50 + 10;
+    a{
+      @include textUnderlineNone;
+      font-size: $fontSize11rem;
+      @include floatNone;
+    }
+  }
+  small {
+    font-size: $fontSize08rem;
+    // @include font-weight(600);
+  }
+  p {
+    margin-bottom: $space05em;
+    font-size: $fontSize09rem;
+    min-height: $space40;
+  }
+  p.numberComment {
+    margin-bottom: 0;
+    min-height: auto;
+    font-size: $fontSize07rem;
+  }
+  @include blueAnchorHover;
+  img {
+    width: $space50 * 2 - 10;
+    max-width: $space50 * 2 - 10;
+    height: auto;
+  }
+}
+#carouselIndicat {
+  a.carousel-control-prev,
+  a.carousel-control-next {
+    bottom: -$space50;
+    width: $space50 - 5;
+    height: $space50 - 5;
+    top: auto;
+    @include colora3aBg;
+    @include whiteText;
+    opacity: 1;
+  }
+  .carousel-indicators {
+    li {
+      &:before,
+      &:after {
+        display: none !important;
+      }
+      width: $space10 + 5;
+      height: $space10 + 5;
+      @include colora3aBg;
+      border-radius: $space100Per - 50;
+      border: none;
+      margin-top: $space10 + 5;
+    }
+    li.active {
+      @include blueBg;
+    }
+    margin: $space0;
+    z-index: 0;
+    bottom: -$space50;
+    height: $space50 - 5;
+    @include greyLightColorBg;
+  }
+}
+
+// Language and Latest Articles and Latest Comments and Videos
+.langlatestArtiSection {
+  .latestArticleBox {
+    padding-top: $space085em !important;
+    padding-bottom: $space085em !important;
+    h3 {
+      font-size: $fontSize11rem;
+      @include redText;
+      @include OpenSansSemibold();
+      a{
+        @include redText;
+        @include textUnderlineNone;
+      }
+    }
+    h4 {
+      font-size: $fontSize09rem;
+      @include font-weight(600);
+    }
+    small {
+      font-size: $fontSize09rem;
+      // @include font-weight(600);
+    }
+    p {
+      font-size: $fontSize07rem;
+      margin-bottom: $space0;
+    }
+    .stretched-link {
+      font-size: $fontSize0rem;
+    }
+  }
+}
+.pagesLinks {
+  @include linkBeforeArrow;
+  @include anchorHover;
+  li {
+    // padding: $space07em 0;
+    font-size: $fontSize1rem;
+    a {
+      padding-top: $space07em;
+      padding-bottom: $space07em;
+    }
+  }
+  ul.sectionLists {
+    li {
+      width: 33%;
+      @include floatLeft;
+    }
+  }
+}
+.commentsBookSection {
+  .pagesLinks {
+    ul {
+      li {
+        a {
+          padding-bottom: $space15em;
+        }
+      }
+      p.numberComment {
+        font-size: $fontSize065rem;
+        margin: $space0;
+        @include positionAb;
+        bottom: $space06em;
+        left: $space09em;
+      }
+    }
+  }
+}
+.lineheightText {
+  li {
+    line-height: $lineHeight125;
+  }
+}
+.latestComment {
+  ul {
+    li {
+      &:not(:last-child) {
+        margin-bottom: $space07em;
+      }
+    }
+  }
+  h2 {
+    @include redText;
+    a{
+      @include redText;
+      @include textUnderlineNone;
+      font-size: $fontSize11rem;
+      @include floatNone;
+    }
+  }
+  h3 {
+    @include blackText;
+    // font-size: $fontSize09rem;
+  }
+  .stretched-link {
+    font-size: $fontSize0rem;
+  }
+}
+.newVideos {
+  iframe {
+    width: $space100Per;
+  }
+  ul {
+    li {
+      h3 {
+        font-size: $fontSize1rem;
+        @include blueText;
+      }
+      .stretched-link {
+        font-size: $fontSize0rem;
+      }
+      &:hover h3 {
+        @include redText;
+      }
+    }
+  }
+}
+.articleListDetail {
+  h2 {
+    font-size: $fontSize15rem;
+    @include font-weight(600);
+    @include redText;
+  }
+  h3 {
+    font-size: $fontSize1rem;
+    @include blueText;
+    @include OpenSansSemibold();
+    min-height: $space40;
+  }
+  small {
+    font-size: $fontSize085rem;
+  }
+  p {
+    margin-bottom: $space05em;
+    font-size: $fontSize12rem;
+    word-wrap: break-word;
+  }
+  img {
+    @include floatLeft;
+    margin-right: $space20 - 5;
+    margin-bottom: $space10 - 5;
+  }
+  iframe {
+    width: $space100Per;
+  }
+}
+.numberComment {
+  @include textUnderline;
+}
+
+// Subscribe Section
+.subscribeSection {
+  background: $greyLightColor;
+  h2 {
+    font-size: $fontSize16rem;
+    @include font-weight(600);
+  }
+  input[type="email"],
+  input[type="text"] {
+    background: lighten($greyLightColor, 3.5%);
+    color: $blackColor;
+  }
+}
+.videoRow {
+  iframe {
+    border: 1px solid $darkGreyColor;
+    width: $space100Per;
+  }
+}
+.loaderDiv {
+  font-size: $fontSize2rem;
+}
+
+.contactPage {
+  .bg-light {
+    min-height: $space50 * 7 + $space20 + 5;
+  }
+}
+.ligapBottom {
+  li {
+    margin-bottom: $space07em;
+  }
+}
+.staticPage {
+  h3 {
+    font-size: $fontSize13rem;
+    margin-bottom: $space05em;
+    @include font-weight(600);
+  }
+}
+.fa-blogger::before {
+  content: "\f37d";
+}
+.articleCommentsSection {
+  font-size: $fontSize11rem;
+  counter-reset: number;
+  .articleComments {
+    @include positionRe;
+    // padding-left: $space16em;
+    word-wrap: break-word;
+    clear: both;
+    // overflow: hidden;
+    // @include dBlock;
+    div {
+      margin-bottom: 0.5em;
+    }
+   // &:before {
+      
+      // counter-increment: number;
+      // content: "" counter(number) ".";
+      // @include positionAb;
+      // left: $space0;
+      // top: $space20 - 4;
+      // @include redText;
+      // @include font-weight(600);
+    //}
+    .commentCount{
+      @include positionAb;
+      left: -$space40 + 5;
+      font-style: normal;
+      top: $space2 * 8;
+      letter-spacing: -1px;
+    }
+  }
+  .commentListAll{
+    padding-left: $space40 - 8;
+  }
+}
+.commentViewTitle {
+  @include redText;
+}
+.articleListDetail.writerSection {
+  h3 {
+    min-height: auto;
+    font-size: $fontSize13rem;
+    @include redText;
+  }
+  .ArticleReadTitle {
+    @include redText;
+    @include textUnderline;
+  }
+}
+.pagination.pagiCustom {
+  @include textTransform(capitalize);
+  li {
+    &:last-child {
+      span {
+        margin-left: $space0;
+        border-top-left-radius: $space5 - 1;
+        border-bottom-left-radius: $space5 - 1;
+      }
+    }
+    &:last-child {
+      span {
+        border-top-right-radius: $space5 - 1;
+        border-bottom-right-radius: $space5 - 1;
+      }
+      a {
+        border-top-right-radius: $space5 - 1;
+        border-bottom-right-radius: $space5 - 1;
+      }
+    }
+    a,
+    span {
+      @include positionRe;
+      @include floatLeft;
+      padding: $space5 - 1 $space10 + 2;
+      margin-left: -$space1;
+      color: $linkedinColor;
+      @include textUnderlineNone;
+      @include whiteBg;
+      border: 1px solid $greyLightColor;
+    }
+  }
+  .disabled {
+    span {
+      color: $darkGreyColor;
+      cursor: not-allowed;
+      @include whiteBg;
+      border-color: $greyLightColor;
+      &:hover,
+      &:focus {
+        color: $darkGreyColor;
+        cursor: not-allowed;
+        @include whiteBg;
+        border-color: $greyLightColor;
+      }
+    }
+    a {
+      color: $darkGreyColor;
+      cursor: not-allowed;
+      @include whiteBg;
+      border-color: $greyLightColor;
+      &:hover,
+      &:focus {
+        color: $darkGreyColor;
+        cursor: not-allowed;
+        @include whiteBg;
+        border-color: $greyLightColor;
+      }
+    }
+  }
+}
+.pageWrap {
+  font-size: $fontSize12rem;
+  .debatingIslamBox {
+    h3 {
+      min-height: $space20;
+    }
+  }
+}
+.sharePost {
+  margin-bottom: $space10 + $space5;
+  @include whiteBg;
+  padding: 4px 5px 8px 2px;
+  button {
+    width: $space30;
+    height: $space30;
+    margin-left: $space5;
+    svg {
+      height: $space100Per;
+      width: $space100Per;
+    }
+  }
+}
+.subscribePageIn {
+  .justify-content-center {
+    -ms-flex-pack: end !important;
+    justify-content: end !important;
+  }
+  .form-inline {
+    .form-group {
+      @include dBlock;
+      flex: auto;
+      width: $space100Per;
+      margin: 0 0 15px !important;
+      input {
+        width: $space100Per;
+      }
+    }
+  }
+}
+.notranslate.public-DraftEditor-content {
+  min-height: 200px;
+}
+.sectionPopularVideo .col-12.text-right .btn.btn-success.viewAllBtn {
+  margin-top: 48px;
+}
+
+// Media Query
+
+@include desktop {
+}
+
+@include tabletLg {
+  .mainHeader {
+    .headerTopRight {
+      margin-top: $space0;
+    }
+  }
+}
+
+@include tablet {
+  .mainHeader {
+    .headerMenu {
+      ul {
+        li + li {
+          margin-left: $space05em;
+        }
+        li {
+          a {
+            padding: $space067em 0.45em;
+          }
+          i.fa {
+            font-size: $fontSize08rem;
+            top: $space20 - 2;
+          }
+          ul {
+            li {
+              a {
+                padding: $space04em $space06em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .mainFooter {
+    .footerTop {
+      .connectFooter {
+        li {
+          margin-bottom: $space03em;
+        }
+      }
+    }
+  }
+  .viewAllBtn {
+    // height: 22px;
+    margin: $space03em;
+    padding: $space01em $space05em;
+    font-size: $fontSize075rem;
+  }
+  .sectionTitle {
+    h1,
+    h2 {
+      font-size: $fontSize08rem;
+    }
+  }
+  .debatingIslamBox {
+    h2 {
+      //    font-size: $fontSize11rem;
+    }
+    h3 {
+      // font-size: $fontSize09rem;
+    }
+  }
+  .pagesLinks {
+    li {
+      font-size: $fontSize085rem;
+    }
+  }
+  .latestArticle {
+    .media {
+      line-height: $lineHeight11;
+    }
+  }
+  .langlatestArtiSection {
+    .latestArticleBox {
+      h3 {
+        line-height: $lineHeight1;
+        // font-size: $fontSize1rem;
+      }
+      h4 {
+        // font-size: $fontSize12rem;
+        margin-bottom: $space05em;
+      }
+      small {
+        // font-size: $fontSize06rem;
+      }
+    }
+  }
+  .subscribeSection {
+    h2 {
+      font-size: $fontSize15rem;
+    }
+  }
+  .newVideos {
+    iframe {
+      height: 200px;
+    }
+  }
+}
+
+@include ipadLg {
+  .mainHeader {
+    .headerMenu {
+      // min-height: $space50;
+      ul.headerMenuList {
+        li {
+          width: $space100Per;
+          a {
+            padding-left: $space0;
+            padding-right: $space0;
+            border-bottom: 1px solid lighten($blackColor, 9%);
+            padding-top: $space05em;
+            padding-bottom: $space05em;
+            &:hover {
+              @include redText;
+            }
+          }
+          i.fa {
+            @include whiteText;
+            top: $space0;
+            right: $space0;
+            background: lighten($darkGreyColor, 0.5%);
+            width: $space30;
+            @include textCenter;
+            line-height: $space40;
+            @include cursorPointer;
+            z-index: 1;
+          }
+          &:hover {
+            ul.subMenu {
+              @include dNone;
+            }
+          }
+          i.fa.submenushow {
+            @include redBg;
+            &:before {
+              content: "\f106";
+            }
+          }
+          i.fa.submenushow + ul.subMenu {
+            @include dBlock;
+          }
+          ul.subMenu {
+            width: $space100Per;
+            li {
+              a {
+                padding-left: $space10 - 5;
+                border-bottom-color: $redColor;
+                &:hover {
+                  @include whiteText;
+                }
+              }
+            }
+          }
+        }
+      }
+      .mobileIcon {
+        @include dInlineBlock;
+        @include whiteText;
+        @include cursorPointer;
+        @include floatLeft;
+        padding: $space03em $space08em;
+        background: lighten($redColor, 3.5%);
+        font-size: $fontSize13rem;
+        @include positionAb;
+        right: -$space50;
+        top: $space35 * 2;
+      }
+      .dexktopSearchWrap {
+        // margin-top: -44px;
+        .dexktopSearchIcon {
+          margin-top: $space0;
+          padding: $space03em;
+          width: 48px;
+          height: 45px;
+          input {
+            right: $space50 - 2;
+          }
+        }
+      }
+    }
+    .menuLeft {
+      @include transition(all 0.5s ease-in-out 0s);
+      @include positionFix;
+      left: -$space50 * 5;
+      top: $space0;
+      width: $space50 * 5;
+      height: $space100Per;
+      @include blackBg;
+      z-index: 99;
+    }
+    .menuLeft.show {
+      left: $space0;
+      z-index: 999;
+      .mobileIcon {
+        i.fa {
+          &:before {
+            content: "\f00d";
+          }
+        }
+      }
+    }
+  }
+  .langlatestArtiSection {
+    .latestArticleBox {
+      h3 {
+        // font-size: $fontSize09rem;
+      }
+      small {
+        font-size: $fontSize09rem;
+      }
+      p {
+        font-size: $fontSize08rem;
+      }
+    }
+  }
+  .pagesLinks {
+    ul {
+      li {
+        a {
+          font-size: $fontSize1rem;
+        }
+      }
+    }
+  }
+  .newVideos {
+    ul {
+      li {
+        h3 {
+          font-size: $fontSize1rem;
+        }
+      }
+    }
+  }
+  .sectionPopularVideo .col-12.text-right .btn.btn-success.viewAllBtn {
+    margin-top: 0;
+  }
+}
+
+@include ipad {
+  .mainHeader {
+    .headerNewsWrap {
+      ul {
+        width: calc(100% - 13em);
+        font-size: $fontSize09rem;
+      }
+    }
+  }
+  .debatingIslamBox {
+    img {
+      width: $space100Per;
+    }
+    .media-body {
+      flex: content;
+      width: $space100Per;
+      padding-top: $space0 !important;
+      word-break: break-word;
+      h2 {
+        font-size: $fontSize08rem;
+      }
+      h3 {
+        font-size: $fontSize1rem;
+        a{
+          font-size: $fontSize1rem;
+        }
+      }
+      small {
+        font-size: $fontSize08rem;
+      }
+      p {
+        font-size: $fontSize08rem;
+        line-height: $lineHeight12;
+      }
+      a {
+        font-size: $fontSize09rem;
+      }
+    }
+  }
+  .latestComment {
+    .debatingIslamBox {
+      .media-body {
+        padding-top: $space08em !important;
+      }
+    }
+  }
+  .newVideos {
+    iframe {
+      height: 370px;
+    }
+  }
+  .myBrand {
+    img {
+      height: $space50 + 4;
+    }
+  }
+  .mainFooter {
+    font-size: $fontSize11rem;
+  }
+  .sectionTitle {
+    select.custom-select {
+      width: 40% !important;
+    }
+  }
+  .langlatestArtiSection {
+    .latestArticleBox {
+      h4 {
+        font-size: $fontSize08rem;
+      }
+      h3 {
+        font-size: $fontSize1rem;
+        a{
+          font-size: $fontSize1rem;
+        }
+      }
+      small {
+        font-size: $fontSize08rem;
+      }
+    }
+  }
+  .articleListDetail {
+    img {
+      width: $space100Per;
+      max-width: $space100Per;
+      margin-right: $space0;
+    }
+  }
+}
+
+@include mobileLg {
+  .mainFooter {
+    .footerTop {
+      .connectFooter {
+        li {
+          &:not(:last-child) {
+            margin-right: $space01em;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .mainHeader {
+    .headerNewsWrap {
+      h3 {
+        width: 9.5em;
+        padding-left: $space05em !important;
+        padding-right: $space13em !important;
+        font-size: $fontSize09rem;
+        &:before {
+          border-bottom-width: 31px;
+        }
+      }
+      ul {
+        width: calc(100% - 10em);
+        font-size: $fontSize09rem;
+      }
+    }
+    .dateHeader {
+      font-size: $fontSize08rem;
+    }
+    .headerMenu {
+      .mobileIcon {
+        top: $space35 * 2 - 3;
+      }
+    }
+  }
+  .mainFooter {
+    font-size: $fontSize11rem;
+    .footerMiddle {
+      ul {
+        li {
+          line-height: $lineHeight15;
+        }
+        li + li {
+          margin-left: $space1em;
+        }
+      }
+    }
+    .footerTop {
+      .connectFooter {
+        li {
+          a {
+            font-size: $fontSize085rem;
+          }
+        }
+      }
+    }
+  }
+  .debatingIslamBox {
+    img {
+      width: $space50 + 20;
+      max-width: $space50 + 20;
+      height: $space50 + 20;
+    }
+    .media-body {
+      flex: content;
+      width: $space100Per;
+      padding-top: $space0 !important;
+      word-break: break-word;
+      h2 {
+        font-size: $fontSize08rem;
+      }
+      h3 {
+        font-size: $fontSize1rem;
+        min-height: $space10 + 5;
+        a{
+          font-size: $fontSize1rem;
+        }
+      }
+      small {
+        font-size: $fontSize08rem;
+      }
+      p {
+        font-size: $fontSize08rem;
+        line-height: $lineHeight12;
+      }
+    }
+    a {
+      font-size: $fontSize09rem;
+    }
+  }
+  .latestComment {
+    .debatingIslamBox {
+      .media-body {
+        padding-top: $space08em !important;
+      }
+    }
+  }
+  .subscribeSection {
+    .form-group {
+      margin-bottom: $space1em !important;
+    }
+    @include dNone;
+  }
+  .myBrand {
+    img {
+      height: $space50;
+    }
+  }
+  .innerPageWrap aside.col-12.col-sm-12 {
+    @include dNone;
+  }
+  .sectionTitle {
+    select.custom-select {
+      width: 35% !important;
+    }
+  }
+  .pagesLinks {
+    ul.sectionLists {
+      li {
+        width: 50%;
+      }
+    }
+  }
+  .sectionPopularVideo .bottomBtn {
+    margin-bottom: 30px;
+  }
+
+  .bottomBtn .viewAllBtn,
+  .btn-group-sm > .btn,
+  .btn-sm {
+    line-height: 18px;
+  }
+  .sectionTitle .btn-group-sm > .btn,
+  .sectionTitle .btn-sm {
+    line-height: 18px;
+  }
+  .articleListDetail {
+    img {
+      width: $space100Per;
+      max-width: $space100Per;
+      margin-right: $space0;
+    }
+    img {
+      &:first-child{
+        //width: $space20 * 4;
+      }
+    }
+    p{
+      &:first-child{
+        img{
+          width: $space20 * 5;
+          margin-right: $space10;
+        }
+      }
+    }
+  }
+}
+
+@include mobileSmall {
+  .mainHeader {
+    .headerNewsWrap {
+      h3 {
+        width: 9.5em;
+        padding-left: $space05em !important;
+        padding-right: $space13em !important;
+        font-size: $fontSize082rem;
+        @include dNone;
+      }
+      ul {
+        font-size: $fontSize1rem;
+        width: $space100Per;
+      }
+    }
+    .headerMenu {
+      .mobileIcon {
+        top: $space30 * 3 - 3;
+      }
+    }
+  }
+  .debatingIslamBox {
+    margin-bottom: $space1em;
+    .media-body{
+      h3{
+        a{
+          word-wrap: anywhere;
+        }
+      }
+    }
+  }
+  .viewAllBtn {
+    height: 25px;
+    margin: $space02em;
+    padding: $space02em $space05em;
+    font-size: $fontSize075rem;
+  }
+  .sectionTitle .btn-group-sm > .btn,
+  .sectionTitle .btn-sm {
+    line-height: $lineHeight1;
+  }
+  .sectionTitle {
+    h1,
+    h2 {
+      font-size: $fontSize08rem;
+    }
+    a {
+      span {
+        @include dNone;
+      }
+    }
+    select.custom-select {
+      width: 50% !important;
+    }
+  }
+  .myBrand {
+    @include textCenter;
+    img {
+      height: $space35 * 2;
+    }
+  }
+  .subscribeSection {
+    .btn.btn-danger {
+      width: $space100Per;
+      @include dBlock;
+    }
+    .form-group {
+      width: $space100Per;
+      margin-left: $space0 !important;
+      margin-right: $space0 !important;
+    }
+  }
+  .mainFooter {
+    .newsletterFooter {
+      button {
+        width: $space100Per;
+      }
+    }
+  }
+  .articleListDetail {
+    img {
+      //width: $space20 * 4;
+      max-width: $space100Per;
+    }
+    img {
+      &:first-child{
+        //width: $space20 * 4;
+      }
+    }
+    p{
+      &:first-child{
+        img{
+          width: $space20 * 4;
+        }
+      }
+    }
+  }
+  .pagesLinks {
+    ul.sectionLists {
+      li {
+        width: 100%;
+      }
+    }
+  }
+  .pagination.pagiCustom {
+    @include dBlock;
+    li {
+      margin-bottom: $space02em;
+      @include dInlineBlock;
+      padding: 0 2px;
+    }
+  }
+  .bottomBtn .btn.btn-success.viewAllBtn {
+    line-height: 18px;
+  }
+}
+
+@include mobileSmall370 {
+  .form-group.captchaForm{
+    div{
+      width: $space100Per !important;
+      iframe{
+        width: $space100Per;
+      }
+    }
+  }
+}
