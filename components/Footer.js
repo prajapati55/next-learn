@@ -181,7 +181,7 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {/* <img src={bloggerImg} width="16" alt="blogger" /> */}
+                      <img src="/blogger.png" width="16" alt="blogger" />
                     </a>
                   </li>
                 </ul>

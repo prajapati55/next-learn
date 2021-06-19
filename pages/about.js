@@ -1,21 +1,5 @@
 import React from "react";
 import Head from "next/head"
-import http from "../http";
-
-export async function getStaticProps() {
-    // Call an external API endpoint to get posts.
-    // You can use any data fetching library
-    const result = await http.get("/authors");
-    const writers = await result.data;
-    console.log(writers, 'writes');
-    // By returning { props: { posts } }, the Blog component
-    // will receive `posts` as a prop at build time
-    return {
-        props: {
-            writers,
-        },
-    }
-}
 
 const head = () => {
     return (

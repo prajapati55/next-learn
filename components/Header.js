@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Head from "next/head"
 import http from "../http";
 import HeaderTimer from "./header.timer.js";
 
@@ -47,26 +46,10 @@ const HeaderSection = () => {
     fetchWriters();
   }, []);
 
-  const head = () => {
-    return (
-      <Head key={Math.random()}>
-        <title>
-          Islamic News and Views | Moderate Muslims & Islam | New Age Islam
-        </title>
-        <meta property="og:title" content="Islamic News and Views | Moderate Muslims & Islam | New Age Islam" />
-        <meta
-          name="description"
-          content="Get all the news and views on Rethinking Islamic Religion, preventing radicalisation and de-radicalisation. New Age Islam brings modern Muslims closer to the original ideals and spirit of Islam & Rethink on Islam. Visit us today!"
-        />
-        <meta name="abstract" content="About Islam, Islamic Religion and Muslims" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.newageislam.com" />
-      </Head>
-    );
-  };
+
   return (
     <React.Fragment>
-      {head()}
+      {/* {head()} */}
       <header className="mainHeader mb-3">
         <section className="headerTop py-2">
           <div className="container">
