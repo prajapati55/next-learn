@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router"
-import Article from "../components/article.list";
+import VideoSection from "../components/video";
 import api from "../http";
 import PaginationComp from "../components/pagination";
 import Spinner from "../components/Spinner";
 
-const bestArticles = () => {
+const latestVideos = () => {
     const router = useRouter();
-    const [bestProps, setBestProps] = new useState({
-        articles: [],
+    const [latestVideos, setLatestVideos] = new useState({
+        videos: [],
         pageLimit: 15,
         currentPage: 1,
         totalCount: null,
-        heading: "Rethinking Islam   (Best of Before Articles)",
-        comments: []
+        heading: "Latest Videos",
     })
     const [loading, setLoading] = new useState(true);
 
@@ -27,27 +26,24 @@ const bestArticles = () => {
     const fetchData = async (params, heading) => {
         try {
             setLoading(true)
-            const response = await api.get("/getBestOfBeforeArtilces", {
+            const response = await api.get("/getVideos", {
                 params,
             });
             setLoading(false);
-            setBestProps({
-                articles: response.data.results,
+            setLatestVideos({
+                videos: response.data.results,
                 pageLimit: response.data.pageLimit,
                 totalCount: response.data.totalCount,
-                comments: response.data.comments,
-                heading: heading,
-            })
-
+            });
         } catch {
             setLoading(false);
-            setBestProps({
-                articles: [],
+            setLatestVideos({
+                videos: [],
                 pageLimit: 15,
                 currentPage: 1,
                 totalCount: null,
                 heading: heading,
-                comments: []
+                currentPage: params.page
             });
         }
     }
@@ -61,7 +57,7 @@ const bestArticles = () => {
         };
         fetchData(
             params,
-            "Rethinking Islam   (Best of Before Articles)"
+            "Latest Videos"
         );
     };
 
@@ -70,37 +66,22 @@ const bestArticles = () => {
         getDataByParams(currentPage);
     };
 
-    const {
-        articles,
-        totalCount,
-        pageLimit,
-        comments,
-        currentPage,
-        heading
-    } = bestProps;
+    const { videos, totalCount, pageLimit, currentPage, heading } = latestVideos;
 
     let articleList = <Spinner />;
-    if (articles.length && !loading) {
-        articleList = articles.map((article) => {
-            return (
-                <Article
-                    key={article.Article_ID}
-                    article={article}
-                    isShowGroupHeading
-                    comments={comments}
-                />
-            );
+    if (videos.length && !loading) {
+        articleList = videos.map((video, keyIndex) => {
+            return <VideoSection key={keyIndex} video={video} />;
         });
     }
 
-    return <div className="col-12 col-sm-12 col-md-8 col-lg-9">
-        <div className="sectionTitle blueTitleBg clearfix d-flex">
-            <h2 className="m-0 float-left mr-auto px-3">{heading}</h2>
-        </div>
-        <div className="pageWrap p-3 bg-light shadow-sm">{articleList}</div>
-
-        {!totalCount ? null : (
-            <div className="text-center">
+    return (
+        <div className="col-12 col-sm-12 col-md-8 col-lg-9">
+            <div className="sectionTitle blueTitleBg clearfix d-flex">
+                <h2 className="m-0 float-left mr-auto px-3">{heading}</h2>
+            </div>
+            <div className="pageWrap p-3 bg-light shadow-sm">{articleList}</div>
+            {!totalCount ? null : (
                 <PaginationComp
                     firstPageText={
                         <i className="fa fa-angle-double-left" aria-hidden="true" />
@@ -108,9 +89,7 @@ const bestArticles = () => {
                     lastPageText={
                         <i className="fa fa-angle-double-right" aria-hidden="true"></i>
                     }
-                    prevPageText={
-                        <i className="fa fa-angle-left" aria-hidden="true" />
-                    }
+                    prevPageText={<i className="fa fa-angle-left" aria-hidden="true" />}
                     nextPageText={
                         <i className="fa fa-angle-right" aria-hidden="true" />
                     }
@@ -121,9 +100,10 @@ const bestArticles = () => {
                     itemClass="page-item"
                     linkClass="page-link"
                 />
-            </div>
-        )}
-    </div>
+            )}
+        </div>
+    );
+
 }
 
-export default bestArticles;
+export default latestVideos;

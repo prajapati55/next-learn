@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router"
-import Article from "../components/article.list";
+import CommentSection from "../components/comment";
 import api from "../http";
 import PaginationComp from "../components/pagination";
 import Spinner from "../components/Spinner";
 
-const bestArticles = () => {
+const latestComments = () => {
     const router = useRouter();
-    const [bestProps, setBestProps] = new useState({
-        articles: [],
+    const [latestComments, setLatestComments] = new useState({
+        comments: [],
         pageLimit: 15,
         currentPage: 1,
         totalCount: null,
-        heading: "Rethinking Islam   (Best of Before Articles)",
-        comments: []
+        heading: "Latest Comments",
     })
     const [loading, setLoading] = new useState(true);
 
@@ -24,19 +23,20 @@ const bestArticles = () => {
         getDataByParams(router.query.page ? router.query.page : 1)
     }, [router.isReady]);
 
+
     const fetchData = async (params, heading) => {
         try {
             setLoading(true)
-            const response = await api.get("/getBestOfBeforeArtilces", {
+            const response = await api.get("/latestComments", {
                 params,
             });
             setLoading(false);
-            setBestProps({
-                articles: response.data.results,
+            setLatestComments({
+                comments: response.data.results,
                 pageLimit: response.data.pageLimit,
                 totalCount: response.data.totalCount,
-                comments: response.data.comments,
                 heading: heading,
+                currentPage: params.page
             })
 
         } catch {
@@ -47,7 +47,8 @@ const bestArticles = () => {
                 currentPage: 1,
                 totalCount: null,
                 heading: heading,
-                comments: []
+                comments: [],
+                currentPage: params.page
             });
         }
     }
@@ -61,7 +62,7 @@ const bestArticles = () => {
         };
         fetchData(
             params,
-            "Rethinking Islam   (Best of Before Articles)"
+            "Latest Comments",
         );
     };
 
@@ -70,24 +71,19 @@ const bestArticles = () => {
         getDataByParams(currentPage);
     };
 
-    const {
-        articles,
-        totalCount,
-        pageLimit,
-        comments,
-        currentPage,
-        heading
-    } = bestProps;
-
+    const { comments, totalCount, pageLimit, currentPage, heading } = latestComments;
     let articleList = <Spinner />;
-    if (articles.length && !loading) {
-        articleList = articles.map((article) => {
+    if (comments.length && !loading) {
+        articleList = comments.map((comment) => {
             return (
-                <Article
-                    key={article.Article_ID}
-                    article={article}
-                    isShowGroupHeading
-                    comments={comments}
+                <CommentSection
+                    key={comment.Comments_ID}
+                    Article_Heading={comment.Article_Heading}
+                    Comments={comment.Comments}
+                    Articles_ID={comment.Articles_ID}
+                    Comments_ID={comment.Comments_ID}
+                    Name={comment.Name}
+                    GROUP_NAME={comment.GROUP_NAME}
                 />
             );
         });
@@ -126,4 +122,4 @@ const bestArticles = () => {
     </div>
 }
 
-export default bestArticles;
+export default latestComments;

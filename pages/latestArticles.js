@@ -18,8 +18,11 @@ const latestArticles = () => {
     const [loading, setLoading] = new useState(true);
 
     useEffect(() => {
-        getDataByParams()
-    }, [])
+        if (!router.isReady) return;
+
+        // codes using router.query
+        getDataByParams(router.query.page ? router.query.page : 1)
+    }, [router.isReady]);
 
     const fetchData = async (params, heading) => {
         try {
@@ -79,7 +82,7 @@ const latestArticles = () => {
     } = bestProps;
 
     let articleList = <Spinner />;
-    if (articles.length) {
+    if (articles.length && !loading) {
         articleList = articles.map((article) => {
             return (
                 <Article

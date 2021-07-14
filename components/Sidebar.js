@@ -8,27 +8,27 @@ const sidebarInnerPage = () => (
       <div className="pagesLinks bg-light shadow-sm">
         <ul className="m-0 list-unstyled p-3">
           <li className="border-bottom">
-            <Link href="/bestOfArticles" title="Rethinking Islam" rel="noreferrer">
+            <Link href="/bestOfArticles?page=1" title="Rethinking Islam" rel="noreferrer">
               Rethinking Islam
             </Link>
           </li>
           <li className="border-bottom">
-            <Link href="/latestArticles" title="Latest Articles" rel="noreferrer">
+            <Link href="/latestArticles?page=1" title="Latest Articles" rel="noreferrer">
               Latest Articles
             </Link>
           </li>
           <li className="border-bottom">
-            <Link href="/latestVideos" title="New Videos" rel="noreferrer">
+            <Link href="/latestVideos?page=1" title="New Videos" rel="noreferrer">
               New Videos
             </Link>
           </li>
           <li className="border-bottom">
-            <Link href="/latestComments" title="Latest Comments" rel="noreferrer">
+            <Link href="/latestComments?page=1" title="Latest Comments" rel="noreferrer">
               Latest Comments
             </Link>
           </li>
           <li className="border-bottom">
-            <Link href="/popularArticles" title="Popular Articles" rel="noreferrer">
+            <Link href="/popularArticles?page=1" title="Popular Articles" rel="noreferrer">
               Popular Articles
             </Link>
           </li>

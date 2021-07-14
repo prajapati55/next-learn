@@ -1,14 +1,19 @@
 import { Fragment, useState, useEffect } from "react";
 import Head from "next/head"
+import dynamic from 'next/dynamic'
 import api from "../http";
-// import DebatIslam from '../components/debateIslam';
+
 import ArticleSection from "../components/latestArticle";
 import LatestCommentsSection from "../components/latestComments";
 import PopularArtilces from "../components/popularArticles";
 import SubscribeSection from "../components/subscribe";
 import VideoSection from "../components/videoSection";
+import CardSkelton from "../components/Spinner2.js";
 
-
+const DynamicDebatIslam = dynamic(
+    () => import('../components/debateIslam'),
+    { loading: () => <CardSkelton />, ssr: false }
+)
 const head = () => {
     return (
         <Head key={Math.random()}>
@@ -28,12 +33,14 @@ const head = () => {
 };
 
 const HomePage = () => {
+    const [bestOfBeforeArticles, setBestOfBeforeArticles] = useState([]);
     const [mostPopularArticles, setMostPopularArticles] = useState([]);
     const [latestAricles, setLatestAricles] = useState([]);
     const [sections, setSections] = useState([]);
     const [latestComments, setLatestComments] = useState([]);
     const [latestVideos, setLatestVideos] = useState([]);
     const [documentsData, setDocumentsData] = useState([]);
+    const [showCarousel, setShowCarousel] = useState(false);
 
     const fetchLatestArticles = async () => {
         try {
@@ -120,7 +127,24 @@ const HomePage = () => {
                 : !section.Group_Name.includes("Section");
         });
     };
+    const fetchBestArticles = async () => {
+        try {
+            setShowCarousel(true);
+            const result = await api.get("/getBestOfBeforeArtilces", {
+                params: { view: "home" },
+            });
+            setBestOfBeforeArticles([
+                {
+                    data: result.data.results,
+                    comments: result.data.comments,
+                },
+            ])
+        } catch (err) {
+            setBestOfBeforeArticles([])
+        }
+    }
     useEffect(() => {
+        fetchBestArticles();
         fetchLatestArticles();
         fetchSectionsData();
         fetchLatestComments();
@@ -131,33 +155,39 @@ const HomePage = () => {
 
     return <Fragment>
         {head()}
-        <section className="debatingIslam mb-4 pb-5">
-            <div className="container">
-                <div className="sectionTitle greenTitleBg clearfix d-flex">
-                    <h1 className="m-0 float-left mr-auto px-3">Rethinking Islam</h1>
-                    <a
-                        rel="noopener noreferrer"
-                        href="/bestOfArticles"
-                        className="btn btn-success btn-sm border-0 viewAllBtn"
-                        target="_blank"
-                    >
-                        View All <i className="fa fa-angle-double-right"></i>
-                    </a>
-                </div>
-                {/* <DebatIslam
-                    articles={
-                        bestOfBeforeArticles.length
-                            ? bestOfBeforeArticles[0]["data"]
-                            : []
-                    }
-                    comments={
-                        bestOfBeforeArticles.length
-                            ? bestOfBeforeArticles[0]["comments"]
-                            : []
-                    }
-                /> */}
-            </div>
-        </section>
+
+        {
+            !showCarousel ?
+                null :
+                <section className="debatingIslam mb-4 pb-5">
+                    <div className="container">
+                        <div className="sectionTitle greenTitleBg clearfix d-flex">
+                            <h1 className="m-0 float-left mr-auto px-3">Rethinking Islam</h1>
+                            <a
+                                rel="noopener noreferrer"
+                                href="/bestOfArticles"
+                                className="btn btn-success btn-sm border-0 viewAllBtn"
+                                target="_blank"
+                            >
+                                View All <i className="fa fa-angle-double-right"></i>
+                            </a>
+                        </div>
+                        <DynamicDebatIslam
+                            articles={
+                                bestOfBeforeArticles.length
+                                    ? bestOfBeforeArticles[0]["data"]
+                                    : []
+                            }
+                            comments={
+                                bestOfBeforeArticles.length
+                                    ? bestOfBeforeArticles[0]["comments"]
+                                    : []
+                            }
+                        />
+                    </div>
+                </section>
+        }
+
 
         <ArticleSection
             latestAricles={latestAricles.length ? latestAricles[0]["data"] : []}

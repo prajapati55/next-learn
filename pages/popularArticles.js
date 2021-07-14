@@ -5,15 +5,15 @@ import api from "../http";
 import PaginationComp from "../components/pagination";
 import Spinner from "../components/Spinner";
 
-const bestArticles = () => {
+const latestArticles = () => {
     const router = useRouter();
-    const [bestProps, setBestProps] = new useState({
+    const [popularArticles, setPopularArticles] = new useState({
         articles: [],
         pageLimit: 15,
         currentPage: 1,
         totalCount: null,
-        heading: "Rethinking Islam   (Best of Before Articles)",
-        comments: []
+        heading: "Popular Articles",
+        comments: [],
     })
     const [loading, setLoading] = new useState(true);
 
@@ -24,19 +24,21 @@ const bestArticles = () => {
         getDataByParams(router.query.page ? router.query.page : 1)
     }, [router.isReady]);
 
+
     const fetchData = async (params, heading) => {
         try {
             setLoading(true)
-            const response = await api.get("/getBestOfBeforeArtilces", {
+            const response = await api.get("/getMostPopularArticles", {
                 params,
             });
             setLoading(false);
-            setBestProps({
+            setPopularArticles({
                 articles: response.data.results,
                 pageLimit: response.data.pageLimit,
                 totalCount: response.data.totalCount,
                 comments: response.data.comments,
                 heading: heading,
+                currentPage: params.page
             })
 
         } catch {
@@ -47,7 +49,8 @@ const bestArticles = () => {
                 currentPage: 1,
                 totalCount: null,
                 heading: heading,
-                comments: []
+                comments: [],
+                currentPage: params.page
             });
         }
     }
@@ -61,7 +64,7 @@ const bestArticles = () => {
         };
         fetchData(
             params,
-            "Rethinking Islam   (Best of Before Articles)"
+            "Popular Articles"
         );
     };
 
@@ -77,7 +80,7 @@ const bestArticles = () => {
         comments,
         currentPage,
         heading
-    } = bestProps;
+    } = popularArticles;
 
     let articleList = <Spinner />;
     if (articles.length && !loading) {
@@ -126,4 +129,4 @@ const bestArticles = () => {
     </div>
 }
 
-export default bestArticles;
+export default latestArticles;
