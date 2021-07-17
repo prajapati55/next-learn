@@ -19,7 +19,6 @@ const latestArticles = () => {
 
     useEffect(() => {
         if (!router.isReady) return;
-
         // codes using router.query
         getDataByParams(router.query.page ? router.query.page : 1)
     }, [router.isReady]);

@@ -34,7 +34,7 @@ const sidebarInnerPage = () => (
           </li>
           <li className="border-bottom">
             <Link
-              href="/a/books-and-documents"
+              href="/a/books-and-documents?page=1"
               title="Books and Documents"
               rel="noreferrer"
             >

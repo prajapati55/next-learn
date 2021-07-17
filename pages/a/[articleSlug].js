@@ -10,7 +10,8 @@ import { GetUrlLink } from "../../utils/utility";
 
 const ArticleList = ({ writers, sections }) => {
     const router = useRouter();
-    const { articleSlug, page } = router.query;
+    const [loading, setLoading] = useState(true);
+    const { articleSlug } = router.query;
     const [listdata, setListdata] = useState({
         articles: [],
         totalCount: null,
@@ -18,43 +19,39 @@ const ArticleList = ({ writers, sections }) => {
         comments: [],
         writerDescription: [],
         heading: articleSlug,
+        currentPage: 1
     });
-    const [currentPage, setCurrentPage] = useState(page ? page : 1);
-    const [loading, setLoading] = useState(false);
 
 
-
-    const getDataByParams = async (authorId, groupId, page = 1) => {
-        router.push({ pathname: router.pathname, query: { articleSlug, page } });
-        try {
-            let params = {};
-            if (authorId) {
-                params = {
-                    authorId,
-                    page,
-                };
-            }
-
-            if (groupId) {
-                params = {
-                    groupId,
-                    page,
-                };
-            }
-            let heading = articleSlug;
-            fetchData(params, heading);
-        } catch (err) {
-            console.log(err);
-        }
-    };
     useEffect(() => {
         const { writerId, sectionId } = getRelatedIdByParams();
-        setLoading(true);
-        getDataByParams(writerId, sectionId, currentPage)
-    }, [articleSlug]);
+        if (!router.isReady) return;
+        getDataByParams(writerId, sectionId, router.query.page ? router.query.page : 1)
+    }, [router.isReady, articleSlug]);
+    const getDataByParams = async (authorId, groupId, page = 1) => {
+        router.push({ pathname: router.pathname, query: { articleSlug, page } });
+        let params = {};
+        if (authorId) {
+            params = {
+                authorId,
+                page,
+            };
+        }
+
+        if (groupId) {
+            params = {
+                groupId,
+                page,
+            };
+        }
+        let heading = articleSlug;
+        fetchData(params, heading);
+    };
+
 
     const fetchData = async (params, heading) => {
         try {
+            setLoading(true);
             const response = await api.get("/getArtilcesBy", {
                 params,
             });
@@ -73,6 +70,7 @@ const ArticleList = ({ writers, sections }) => {
                 comments: response.data.comments,
                 writerDescription: response.data.description,
                 heading,
+                currentPage: params.page
             })
 
         } catch {
@@ -83,13 +81,13 @@ const ArticleList = ({ writers, sections }) => {
                 comments: [],
                 writerDescription: [],
                 heading: articleSlug,
+                currentPage: params.page
             });
         }
     }
     const onPageChanged = (data) => {
         const { writerId, sectionId } = getRelatedIdByParams();
         const currentPage = data;
-        setCurrentPage(currentPage);
         setLoading(true);
         getDataByParams(writerId, sectionId, currentPage);
     };
@@ -115,9 +113,9 @@ const ArticleList = ({ writers, sections }) => {
             }
         }
     };
-    const { writerDescription, totalCount, heading, comments, articles, pageLimit } = listdata;
+    const { writerDescription, totalCount, heading, comments, articles, pageLimit, currentPage } = listdata;
     let articleList = <Spinner />;
-    if (articles.length) {
+    if (articles.length && !loading) {
         articleList = articles.map((article) => {
             return (
                 <Article
@@ -128,7 +126,8 @@ const ArticleList = ({ writers, sections }) => {
                 />
             );
         });
-    } else if (!articles.length && !loading) {
+    }
+    if (!articles.length && !loading) {
         articleList = <h3> There is no data</h3>;
     }
 
@@ -136,7 +135,7 @@ const ArticleList = ({ writers, sections }) => {
         {/* {this.head()} */}
         <div className="col-12 col-sm-12 col-md-8 col-lg-9">
             <div className="sectionTitle blueTitleBg clearfix d-flex">
-                <h2 className="m-0 float-left mr-auto px-3">{articleSlug}</h2>
+                <h2 className="m-0 float-left mr-auto px-3">{heading}</h2>
             </div>
             <div className="pageWrap p-3 bg-light shadow-sm">
                 {writerDescription.length && !loading ? (
